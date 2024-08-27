@@ -6,10 +6,12 @@ import React, { useState } from "react";
 import ApiLoader from "../Loader/ApiLoader";
 import { loginUserThunk } from "../../redux/thunk/authThunk";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { isLoading,user } = useSelector((state) => state.auth);
+  const location = useLocation();
+  const { isLoading, user } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
@@ -20,6 +22,8 @@ function Login() {
   const handlePasswordToggle = () => {
     setShowPassword((showPassword) => !showPassword);
   };
+
+  const { email } = location.state || {}
 
   const handleSubmit = async (values) => {
     try {
@@ -37,7 +41,7 @@ function Login() {
         </div>
         <Formik
           initialValues={{
-            email: "",
+            email: email ? email : "",
             password: "",
           }}
           validationSchema={validationSchema}
@@ -115,7 +119,7 @@ function Login() {
         </Formik>
       </div>
       {isLoading && <ApiLoader />}
-      {user&& <p>user is logged in</p>}
+      {user && <p>user is logged in</p>}
     </>
   );
 }

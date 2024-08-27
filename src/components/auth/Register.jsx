@@ -4,6 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { signUp } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
@@ -12,14 +14,15 @@ const validationSchema = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Confirm password is required"),
-  firstName: Yup.string().required("First name is required"),
-  lastName: Yup.string().required("Last name is required"),
+  // firstName: Yup.string().required("First name is required"),
+  // lastName: Yup.string().required("Last name is required"),
   phone: Yup.string().required("Phone number is required"),
 });
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handlePasswordToggle = () => setShowPassword(!showPassword);
   const handleConfirmPasswordToggle = () =>
@@ -29,6 +32,9 @@ function Register() {
     await signUp(payload)
       .then((res) => {
         console.log("res", res);
+        if (res && res.email) {
+          navigate("/login", { state: { email: res.email } });
+        }
       })
       .finally(() => {
         console.log("inside finally");
@@ -45,8 +51,8 @@ function Register() {
           email: "",
           password: "",
           confirmPassword: "",
-          firstName: "",
-          lastName: "",
+          // firstName: "",
+          // lastName: "",
           phone: "",
         }}
         validationSchema={validationSchema}
@@ -130,7 +136,7 @@ function Register() {
               />
             </div>
             <div className="grid md:grid-cols-2 md:gap-6">
-              <div className="relative z-0 w-full mb-5 group">
+              {/* <div className="relative z-0 w-full mb-5 group">
                 <Field
                   type="text"
                   name="firstName"
@@ -169,7 +175,7 @@ function Register() {
                   component="div"
                   className="text-red-600 text-sm"
                 />
-              </div>
+              </div> */}
             </div>
             <div className="relative z-0 w-full mb-5 group">
               <Field

@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AuthPage from "./pages/AuthPage";
@@ -5,6 +6,9 @@ import HomePage from "./pages/HomePage";
 import { Suspense } from "react";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import PublicRoute from "./components/auth/PublicRoute";
+const MyProfile = lazy(() => import("./pages/MyProfilePage"));
+const MyUploads = lazy(() => import("./pages/MyUploads"));
+const UploadImage = lazy(() => import("./pages/UploadImage"));
 function App() {
   return (
     <>
@@ -17,7 +21,13 @@ function App() {
                 <HomePage />
               </PrivateRoute>
             }
-          ></Route>
+          >
+            
+            <Route path="/" element={<HomePage />} />
+            <Route path="profile" element={<MyProfile />} />
+            <Route path="upload" element={<UploadImage />} />
+            <Route path="my-uploads" element={<MyUploads />} />
+          </Route>
           <Route
             path="/login"
             element={

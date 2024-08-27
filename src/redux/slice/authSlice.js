@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUserThunk } from "../thunk/authThunk";
-
+import { toast } from "react-toastify";
 const initialUser = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
@@ -14,6 +14,7 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.user = null;
+      toast.error("logged out")
     },
   },
   extraReducers: (builder) => {
@@ -24,9 +25,10 @@ const authSlice = createSlice({
       })
       .addCase(loginUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        const user = action.payload; // Assume payload contains the user object
+        const user = action.payload;
         state.user = user;
         localStorage.setItem("user", JSON.stringify(user));
+        toast.success(" login success");
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -35,5 +37,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;
+export const { logout } = authSlice.actions;
