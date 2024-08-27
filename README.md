@@ -45,5 +45,5 @@ To get started with this project, follow these steps:
 
 1. **Clone the Repository**
    ```bash
-   git clone [<repository-url>](https://github.com/gopakumar-k-a/imageDrive-frontend.git)
+   git clone https://github.com/gopakumar-k-a/imageDrive-frontend.git
    cd client
