@@ -23,7 +23,7 @@ function Login() {
     setShowPassword((showPassword) => !showPassword);
   };
 
-  const { email } = location.state || {}
+  const { email } = location.state || {};
 
   const handleSubmit = async (values) => {
     try {

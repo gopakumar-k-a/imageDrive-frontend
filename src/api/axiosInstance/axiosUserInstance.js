@@ -44,7 +44,6 @@ axiosUserInstance.interceptors.request.use(
     token = JSON.parse(user);
   }
 
-  console.log('token ',token.token);
 
     if (token) {
       request.headers["Authorization"] = `Bearer ${token.token}`;

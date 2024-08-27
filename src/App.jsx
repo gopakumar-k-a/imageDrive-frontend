@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import { Suspense } from "react";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import PublicRoute from "./components/auth/PublicRoute";
+import NotFoundPage from "./pages/NotFoundPage";
 const MyProfile = lazy(() => import("./pages/MyProfilePage"));
 const MyUploads = lazy(() => import("./pages/MyUploads"));
 const UploadImage = lazy(() => import("./pages/UploadImage"));
@@ -22,7 +23,6 @@ function App() {
               </PrivateRoute>
             }
           >
-            
             <Route path="/" element={<HomePage />} />
             <Route path="profile" element={<MyProfile />} />
             <Route path="upload" element={<UploadImage />} />
@@ -44,6 +44,7 @@ function App() {
               </PublicRoute>
             }
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </>

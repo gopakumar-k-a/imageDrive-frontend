@@ -31,7 +31,6 @@ function Register() {
   const handleSubmit = async (payload) => {
     await signUp(payload)
       .then((res) => {
-        console.log("res", res);
         if (res && res.email) {
           navigate("/login", { state: { email: res.email } });
         }

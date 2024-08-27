@@ -101,11 +101,7 @@ function MyUploadsComp() {
     setUploadedImages(imageClone);
   };
   const handleSaveChanges = async () => {
-    // Here, you can save the changes to the server or perform any logic
-    console.log("Changes saved: ", {
-      removedImages,
-      updatedImages: uploadedImages,
-    });
+
     try {
       setLoading(true);
       const res = await updateImage({
@@ -120,42 +116,12 @@ function MyUploadsComp() {
     } finally {
       setLoading(false);
     }
-    // Reset state after saving changes
     setRemovedImages([]);
     setHasUnsavedChanges(false);
   };
-  //   const handleSaveChanges = () => {
-  //     const updatedImages = uploadedImages.map((image) => ({
-  //       ...image,
-  //       newImageUrl: image.previewImageUrl
-  //         ? image.previewImageUrl
-  //         : image.imageUrl,
-  //     }));
+  
 
-  //     console.log("Changes saved: ", {
-  //       removedImages,
-  //       updatedImages,
-  //     });
 
-  //     // Clear unsaved changes
-  //     setRemovedImages([]);
-  //     setHasUnsavedChanges(false);
-  //     // console.log("Changes saved: ", {
-  //     //   removedImages,
-  //     //   updatedImages: uploadedImages,
-  //     // });
-
-  //     // setRemovedImages([]);
-  //     // setHasUnsavedChanges(false);
-  //   };
-
-  const handleImageChange = (e, index) => {
-    const file = e.target.files[0];
-    const imageClone = [...uploadedImages];
-    imageClone[index].newImageFile = file;
-    imageClone[index].previewImageUrl = URL.createObjectURL(file);
-    setUploadedImages(imageClone);
-  };
   return (
     <>
       {uploadedImages && uploadedImages.length > 0 ? (

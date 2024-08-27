@@ -4,14 +4,10 @@ import axios from "axios";
 
 export const handleAxiosErrorHelper = (error) => {
   if (axios.isAxiosError(error)) {
-    console.log("inside axios error");
 
     const axiosError = error;
-    console.log("axiosError ", axiosError);
 
     if (axiosError.response) {
-      console.log("axiosError.response ", axiosError.response);
-      console.log("axiosError.response.data ", axiosError.response.data);
 
       if (
         axiosError.response.data &&

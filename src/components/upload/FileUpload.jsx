@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FaPencil, FaCheck } from "react-icons/fa6";
 import { uploadImages } from "../../api/image";
 import ApiLoader from "../Loader/ApiLoader";
+import { toast } from "react-toastify";
 const FileUpload = () => {
   const [images, setImages] = useState([]);
   const [draggedIndex, setDraggedIndex] = useState(null);
@@ -47,18 +48,10 @@ const FileUpload = () => {
         }
       });
     }
-    console.log("Current images:", images);
 
     const orderedImageNames = images.map((image) => image.title);
     formData.append("orderedImages", JSON.stringify(orderedImageNames));
 
-    for (let [key, value] of formData.entries()) {
-      if (value instanceof File) {
-        console.log(`${key}:`, value.name); 
-      } else {
-        console.log(`${key}:`, value);
-      }
-    }
     try {
       setLoading(true);
       const res = await uploadImages(formData);
@@ -68,6 +61,7 @@ const FileUpload = () => {
             URL.revokeObjectURL(image.url);
           }
         });
+        toast.success("images uploaded successfully");
         setImages([]);
       }
     } catch (error) {
@@ -96,7 +90,7 @@ const FileUpload = () => {
       setTimeout(() => {
         const inputField = document.getElementById(`edit-input-${index}`);
         if (inputField) inputField.focus();
-      }, 100); 
+      }, 100);
     }
     setImages(imageClone);
   };

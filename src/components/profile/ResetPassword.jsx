@@ -28,7 +28,6 @@ const ResetPassword = () => {
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       setLoading(true);
       const res = await updatePassword(values);
