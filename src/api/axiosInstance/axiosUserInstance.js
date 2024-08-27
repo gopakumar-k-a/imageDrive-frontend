@@ -1,14 +1,7 @@
 import axios from "axios";
 import { Constants } from "../../constants/Constants";
 import { handleAxiosErrorHelper } from "../../utils/helpers/handleAxiosErrorHelper";
-// import { useSelector } from "react-redux";
-import { useAuthToken } from "./useAuthToken";
-// import {store} from '../../redux/store/store'
 
-// export const useAuthToken = () => {
-//   const { token } = useSelector((state) => state.auth.user);
-//   return token;
-// };
 export const axiosRefreshInstance = axios.create({
   baseURL: Constants.SERVER_URL,
   withCredentials: true,
